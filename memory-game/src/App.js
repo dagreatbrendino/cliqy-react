@@ -3,14 +3,17 @@ import Image from "./components/Image";
 import Score from "./components/Score";
 import logo from './logo.svg';
 import images from "./images.json"
+import messages from "./messages.json"
 import './App.css';
 import TopScore from './components/TopScore';
+import Status from './components/Status'
 
 class App extends Component {
   state = {
     images,
     score: 0,
-    topscore: 0
+    topscore: 0,
+    status: messages.def
   }
   //an async function that will be called when the user clicks an image
   sumbitClick = async (clicked, id) =>{
@@ -29,10 +32,12 @@ class App extends Component {
         const j = Math.floor(Math.random() * (i + 1));
         [images[i], images[j]] = [images[j], images[i]];
       }
-      //increase the user's score and rerender the images
+      
+      //increase the user's score and rerender the images and pick a random correct message
       await this.setState({
                       score: this.state.score + 1,
-                      images: images 
+                      images: images,
+                      status: messages.cor[Math.floor(Math.random()*3)] 
                     }
       )
       //if the current score is greater than the topscore, update the topscore
@@ -41,6 +46,7 @@ class App extends Component {
           topscore: this.state.score
         })
       }
+
     }
     else{
       //reset the clicked state of every image
@@ -50,34 +56,49 @@ class App extends Component {
       //reset the score to zero and rerender the images
       this.setState({
                       score: 0,
-                      images: images
+                      images: images,
+                      status: messages.inc[Math.floor(Math.random()*3)] 
                     }
       )
     }
   }
   render (){
     return(
-      <div className="container">
-      <div className="row">
-        <Score
-          score = {this.state.score}
-        />
-        <TopScore
-          topscore= {this.state.topscore}
-        />
-          
-      </div>
-      <div className="row">
-        {this.state.images.map(image =>(
-          <Image 
-            id={image.id}
-            url={image.url}
-            clicked={image.clicked}
-            submitClick={this.sumbitClick}
+    <div>
+      <nav className="navbar">
+      <ul className="nav">
+        <li className="nav-item">
+          <h4 class="brand">Memory Game</h4>
+        </li>
+        <li className="nav-item">
+          <Status
+            status = {this.state.status}
           />
-        ))}
+        </li>
+        <li className="nav-item">
+          <Score
+            score = {this.state.score}
+          />
+           |
+          <TopScore
+            topscore= {this.state.topscore}
+          />
+        </li>
+      </ul>
+      
+    </nav>
+      <div className="container">
+        <div className="row">
+          {this.state.images.map(image =>(
+            <Image 
+              id={image.id}
+              url={image.url}
+              clicked={image.clicked}
+              submitClick={this.sumbitClick}
+            />
+          ))}
+        </div>
       </div>
-
     </div>
     )
   }

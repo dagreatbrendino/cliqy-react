@@ -5,7 +5,7 @@ class TopScore extends Component{
 
     render(){
         return (
-            <div>Top Score: <span>{this.props.topscore}</span></div>
+            <div class="topscore"> Top Score: <span>{this.props.topscore}</span></div>
         )
     }
 }
