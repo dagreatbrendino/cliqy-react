@@ -2,12 +2,6 @@ import React, { Component } from "react";
 import "./style.css";
 
 class Image extends Component{
-    // state = {
-    //     clicked: this.props.clicked,
-    //     id: this.props.id,
-    //     url: this.props.url
-    // }
-
     render() {
         return(
             <div className="col-3">
