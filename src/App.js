@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
+//importing components
 import Image from "./components/Image";
 import Score from "./components/Score";
-import logo from './logo.svg';
+import TopScore from './components/TopScore';
+import Status from './components/Status'
+//importing data from images and messages
 import images from "./images.json"
 import messages from "./messages.json"
 import './App.css';
-import TopScore from './components/TopScore';
-import Status from './components/Status'
+
 import anime from 'animejs';
 
 class App extends Component {
+  //the state manages the array of image objects, the score, topscore, and current status message so that these things
+  //can be rerendered when updated
   state = {
     images,
     score: 0,
@@ -47,6 +51,7 @@ class App extends Component {
           topscore: this.state.score
         })
       }
+      //animation that plays when status is updated
       anime({
         targets: ".statusMessage",
         keyframes:[
@@ -63,6 +68,7 @@ class App extends Component {
       images.forEach(image =>{
         image.clicked = false;
       });
+      //shuffle the images
       for (let i = images.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [images[i], images[j]] = [images[j], images[i]];
@@ -74,6 +80,7 @@ class App extends Component {
                       status: messages.inc[Math.floor(Math.random()*3)] 
                     }
       )
+      //shake animation to give user feedback of wrong answer
       anime({
         targets: ".allImages",
         keyframes: [
@@ -101,6 +108,7 @@ class App extends Component {
         duration: 750,
         easing: 'easeInOutCirc'
       })
+      //animating status message
       anime({
         targets: ".statusMessage",
         keyframes:[
@@ -119,7 +127,7 @@ class App extends Component {
       <nav className="navbar">
       <ul className="nav">
         <li className="nav-item">
-          <h4 className="brand">Cartoon Click!</h4>
+          <h4 className="brand">Cartoon Clicky!</h4>
         </li>
         <li className="nav-item">
           <Status
@@ -148,6 +156,7 @@ class App extends Component {
     
         
         <div className="row allImages">
+          {/* the images will be rendered by using an image compenent for every image in the array */}
           {this.state.images.map(image =>(
             <Image 
               id={image.id}
