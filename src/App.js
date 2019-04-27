@@ -7,6 +7,7 @@ import messages from "./messages.json"
 import './App.css';
 import TopScore from './components/TopScore';
 import Status from './components/Status'
+import anime from 'animejs';
 
 class App extends Component {
   state = {
@@ -46,6 +47,15 @@ class App extends Component {
           topscore: this.state.score
         })
       }
+      anime({
+        targets: ".statusMessage",
+        keyframes:[
+          {color:"#ff0000"},
+          {color:"#FFF" }
+        ],
+        duration: 1750,
+        easing: "easeOutBack"
+      })
 
     }
     else{
@@ -53,6 +63,10 @@ class App extends Component {
       images.forEach(image =>{
         image.clicked = false;
       });
+      for (let i = images.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [images[i], images[j]] = [images[j], images[i]];
+      }
       //reset the score to zero and rerender the images
       this.setState({
                       score: 0,
@@ -60,15 +74,52 @@ class App extends Component {
                       status: messages.inc[Math.floor(Math.random()*3)] 
                     }
       )
+      anime({
+        targets: ".allImages",
+        keyframes: [
+          {translateX: -10},
+          {translateX: +10},
+          {translateX: +10},
+          {translateX: -10},
+          {translateX: -10},
+          {translateX: +10},
+          {translateX: +10},
+          {translateX: -10},
+          {translateX: -10},
+          {translateX: +10},
+          {translateX: -10},
+          {translateX: +10},
+          {translateX: +10},
+          {translateX: -10},
+          {translateX: -10},
+          {translateX: +10},
+          {translateX: +10},
+          {translateX: -10},
+          {translateX: -10},
+          {translateX: +10}
+        ],
+        duration: 750,
+        easing: 'easeInOutCirc'
+      })
+      anime({
+        targets: ".statusMessage",
+        keyframes:[
+          {color:"#ff0000"},
+          {color:"#FFF" }
+        ],
+        duration: 1750,
+        easing: "easeOutBack"
+      })
     }
   }
   render (){
     return(
-    <div>
+    <div className="main">
+      <div className="navcon">
       <nav className="navbar">
       <ul className="nav">
         <li className="nav-item">
-          <h4 class="brand">Memory Game</h4>
+          <h4 className="brand">Cartoon Click!</h4>
         </li>
         <li className="nav-item">
           <Status
@@ -85,10 +136,18 @@ class App extends Component {
           />
         </li>
       </ul>
-      
-    </nav>
+      </nav>
+      </div>
+      <div className="jumbotron">
+          <h3 className="display-4">A Memory Game</h3>
+          <p>Try to click on every image without clicking on the same one twice! Images will be shuffled after every click
+            so be sure to stay focused. Good Luck!
+          </p>
+        </div>
       <div className="container">
-        <div className="row">
+    
+        
+        <div className="row allImages">
           {this.state.images.map(image =>(
             <Image 
               id={image.id}

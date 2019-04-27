@@ -5,7 +5,7 @@ class Score extends Component{
 
     render(){
         return (
-            <div class="score">Score: <span>{this.props.score} </span></div>
+            <div className="score">Score: <span>{this.props.score} </span></div>
         )
     }
 }

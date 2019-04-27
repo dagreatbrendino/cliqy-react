@@ -5,7 +5,7 @@ class Status extends Component{
 
     render(){
         return (
-            <div class="status"><span>{this.props.status}</span></div>
+            <div className="status"><span className="statusMessage">{this.props.status}</span></div>
         )
     }
 }

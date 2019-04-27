@@ -53,5 +53,19 @@ li{
   text-align: center;
 }
 nav{
-  background-color: palevioletred
+  background-color: palevioletred;
 }
+.navcon{
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  box-shadow: 5px 10px 18px #888888;
+}
+.main{
+  background-color: turquoise;
+}
+.jumbotron{
+  background-image: url("http://7428.net/wp-content/uploads/2015/01/Yellow-Geometric-Background-Design-Vector.jpg");
+  text-align: center;
+}
+
